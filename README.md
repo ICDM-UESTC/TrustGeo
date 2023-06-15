@@ -3,6 +3,8 @@
 
 In this repository, we provide the original PyTorch implementation of TrustGeo framework.
 
+[![](https://img.shields.io/badge/Download-Paper-%234285F4?logo=GoogleDrive&labelColor=lightgrey)](https://drive.google.com/file/d/141gFwvHah4e4VgdSGIzYWE5FcoEfZ9RC/view?usp=sharing)
+
 
 ## Basic Usage
 
