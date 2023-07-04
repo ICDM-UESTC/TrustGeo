@@ -128,4 +128,4 @@ If you find the code useful for your research, please consider citing
 }
 ```
 
-If you have any questions about this code or the paper, feel free to contact us: wxtai AT outlook.com
+If you have any questions about this code or the paper, feel free to contact us: wxtai@outlook.com, binchen4110@gmail.com
