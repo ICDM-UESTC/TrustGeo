@@ -1,7 +1,7 @@
 # TrustGeo: Uncertainty-Aware Dynamic Graph Learning for Trustworthy IP Geolocation
 ![](https://img.shields.io/badge/python-3.8.13-green)![](https://img.shields.io/badge/pytorch-1.12.1-green)![](https://img.shields.io/badge/cudatoolkit-11.6.0-green)![](https://img.shields.io/badge/cudnn-7.6.5-green)
 
-In this repository, we provide the original PyTorch implementation of TrustGeo framework.
+This repository provides the original PyTorch implementation of the TrustGeo framework.
 
 [![](https://img.shields.io/badge/Download-Paper-%234285F4?logo=GoogleDrive&labelColor=lightgrey)](https://drive.google.com/file/d/141gFwvHah4e4VgdSGIzYWE5FcoEfZ9RC/view?usp=sharing)
 
@@ -10,9 +10,9 @@ In this repository, we provide the original PyTorch implementation of TrustGeo f
 
 ### Requirements
 
-The code was tested with `python 3.8.13`, `pytorch 1.12.1`,  `cudatoolkit 11.6.0`, and `cudnn 7.6.5`. Install the dependencies via [Anaconda](https://www.anaconda.com/):
+The code was tested with `python 3.8.13`, `PyTorch 1.12.1`,  `cudatoolkit 11.6.0`, and `cudnn 7.6.5`. Install the dependencies via [Anaconda](https://www.anaconda.com/):
 
-```shell
+```
 # create virtual environment
 conda create --name TrustGeo python=3.8.13
 
@@ -28,7 +28,7 @@ pip install scikit-learn
 
 ### Run the code
 
-```shell
+```
 # Open the "TrustGeo" folder
 cd TrustGeo
 
@@ -74,13 +74,13 @@ python test.py --dataset "Shanghai" --lr 0.0015 --dim_in 51 --lambda1 1e-3 --loa
 	│	|── Shanghai # Street-level IP geolocation dataset collected from Shanghai including 126,258 IP addresses.
 	├── lib # Contains model implementation files
 	│	|── layers.py # The code of the attention mechanism.
-	│	|── model.py # The core source code of proposed TrustGeo
+	│	|── model.py # The core source code of the proposed TrustGeo
 	│	|── sublayers.py # The support file for layer.py
 	│	|── utils.py # Auxiliary functions, including the code of view fusion
 	├── asset # Contains saved checkpoints and logs when running the model
 	│	|── log # Contains logs when running the model 
 	│	|── model # Contains the saved checkpoints
-	├── preprocess.py # Preprocess dataset and execute IP clustering the for model running
+	├── preprocess.py # Preprocess dataset and execute IP clustering for the model running
 	├── main.py # Run model for training and test
 	├── test.py # Load checkpoint and then test
 	└── README.md
@@ -88,13 +88,13 @@ python test.py --dataset "Shanghai" --lr 0.0015 --dim_in 51 --lambda1 1e-3 --loa
 
 ## Dataset Information
 
-The "datasets" folder contains three subfolders corresponding to three large-scale real-world street-level IP geolocation    datasets collected from New York City, Los Angeles and Shanghai. There are three files in each subfolder:
+The "datasets" folder contains three subfolders corresponding to three large-scale real-world street-level IP geolocation    datasets collected from New York City, Los Angeles, and Shanghai. There are three files in each subfolder:
 
 - data.csv    *# features (including attribute knowledge and network measurements) and labels (longitude and latitude) for street-level IP geolocation* 
 - ip.csv    *# IP addresses*
 - last_traceroute.csv    *# last four routers and corresponding delays for efficient IP host clustering*
 
-The detailed **columns and description** of data.csv in New York dataset are as follows:
+The detailed **columns and description** of data.csv in the New York dataset are as follows:
 
 #### New York  
 
@@ -111,14 +111,15 @@ The detailed **columns and description** of data.csv in New York dataset are as 
 | vp900/901/..._tr_steps          | #steps of the traceroute from probing hosts "vp900/901/..." to the IP host |
 | vp900/901/..._last_router_delay | The delay from the last router to the IP host in the traceroute list from probing hosts "vp900/901/..." |
 | vp900/901/..._total_delay       | The total delay from probing hosts "vp900/901/..." to the IP host |
-| longitude                       | The longitude of the IP (as label)                           |
-| latitude                        | The latitude of the IP host (as label)                       |
+| longitude                       | The longitude of the IP (as the label)                           |
+| latitude                        | The latitude of the IP host (as the label)                       |
 
-PS: The detailed columns and description of data.csv in other two datasets are similar to New York dataset's.
+PS: The detailed columns and description of data.csv in the other two datasets are similar to the New York dataset.
 
 ## Citation
-Please cite our paper if it's helpful to you in your research.
-```shell
+If you find the code useful for your research, please consider citing
+
+```
 @inproceedings{tai2023trustgeo,
   title = {TrustGeo: Uncertainty-Aware Dynamic Graph Learning for Trustworthy IP Geolocation},
   author = {Tai, Wenxin and Chen, Bin and Zhou, Fan and Zhong, Ting and Trajcevski, Goce and Wang, Yong and Chen, Kai},
@@ -126,3 +127,5 @@ Please cite our paper if it's helpful to you in your research.
   year = {2023}
 }
 ```
+
+If you have any questions about this code or the paper, feel free to contact us: wxtai AT outlook.com
