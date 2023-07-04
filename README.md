@@ -12,7 +12,7 @@ This repository provides the original PyTorch implementation of the TrustGeo fra
 
 The code was tested with `python 3.8.13`, `PyTorch 1.12.1`,  `cudatoolkit 11.6.0`, and `cudnn 7.6.5`. Install the dependencies via [Anaconda](https://www.anaconda.com/):
 
-```shell
+```
 # create virtual environment
 conda create --name TrustGeo python=3.8.13
 
@@ -28,7 +28,7 @@ pip install scikit-learn
 
 ### Run the code
 
-```shell
+```
 # Open the "TrustGeo" folder
 cd TrustGeo
 
