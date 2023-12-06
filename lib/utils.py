@@ -133,7 +133,8 @@ def get_data_generator(opt, data_train, data_test, normal=2):
     return data_train, data_test
 
 def square_sum(gamma1,gamma):
-    return ((gamma1-gamma)**2).sum(dim=1)
+    out = ((gamma1-gamma)**2).sum(dim=1, keepdim=True) 
+    return out 
 
 # fusion two NIG
 def fuse_nig(gamma1, v1, alpha1, beta1, gamma2, v2, alpha2, beta2):
