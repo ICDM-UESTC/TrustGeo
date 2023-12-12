@@ -98,7 +98,7 @@ class TrustGeo(nn.Module):
         adj_matrix_0[N1:N1 + N2:, -1] = rou2tar_score_0
 
         degree_0 = torch.sum(adj_matrix_0, dim=1)
-        degree_reverse_0 = 1.0 / degree_0
+        degree_reverse_0 = 1.0 / (degree_0 + 1e-12)
         degree_matrix_reverse_0 = torch.diag(degree_reverse_0)
 
         degree_mul_adj_0 = degree_matrix_reverse_0 @ adj_matrix_0
@@ -115,7 +115,7 @@ class TrustGeo(nn.Module):
         all_feature_1 = torch.cat((lm_feature, tg_feature_1, router_1), dim=0)
 
         degree_1 = torch.sum(adj_matrix_1, dim=1)
-        degree_reverse_1 = 1.0 / degree_1
+        degree_reverse_1 = 1.0 / (degree_1 + 1e-12)
         degree_matrix_reverse_1 = torch.diag(degree_reverse_1)
 
         degree_mul_adj_1 = degree_matrix_reverse_1 @ adj_matrix_1
