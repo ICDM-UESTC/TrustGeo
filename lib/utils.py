@@ -20,7 +20,7 @@ class MaxMinLogRTTScaler():
     def transform(self, data):
         data_o = np.array(data)
         data_o = np.log(data_o + 1)
-        return (data_o - self.min) / (self.max - self.min)
+        return (data_o - self.min) / (self.max - self.min + 1e-12)
 
 
 class MaxMinRTTScaler():
@@ -31,7 +31,7 @@ class MaxMinRTTScaler():
     def transform(self, data):
         data_o = np.array(data)
         # data_o = np.log(data_o + 1)
-        return (data_o - self.min) / (self.max - self.min)
+        return (data_o - self.min) / (self.max - self.min + 1e-12)
 
 
 class MaxMinLogScaler():
@@ -43,7 +43,7 @@ class MaxMinLogScaler():
         data[data != 0] = -np.log(data[data != 0] + 1)
         max = torch.from_numpy(self.max).type_as(data).to(data.device) if torch.is_tensor(data) else self.max
         min = torch.from_numpy(self.min).type_as(data).to(data.device) if torch.is_tensor(data) else self.min
-        data[data != 0] = (data[data != 0] - min) / (max - min)
+        data[data != 0] = (data[data != 0] - min) / (max - min + 1e-12)
         return data
 
     def inverse_transform(self, data):
@@ -66,7 +66,7 @@ class MaxMinScaler():
     def transform(self, data):
         max = torch.from_numpy(self.max).type_as(data).to(data.device) if torch.is_tensor(data) else self.max
         min = torch.from_numpy(self.min).type_as(data).to(data.device) if torch.is_tensor(data) else self.min
-        return (data - min) / (max - min)
+        return (data - min) / (max - min + 1e-12)
 
     def inverse_transform(self, data):
         return data * (self.max - self.min) + self.min
@@ -139,7 +139,7 @@ def square_sum(gamma1,gamma):
 # fusion two NIG
 def fuse_nig(gamma1, v1, alpha1, beta1, gamma2, v2, alpha2, beta2):
     # Eq. 16
-    gamma = (gamma1*v1 + gamma2*v2) / (v1+v2)
+    gamma = (gamma1*v1 + gamma2*v2) / (v1+v2 + 1e-12)
     v = v1 + v2
     alpha = alpha1 + alpha2 + 0.5
     beta = beta1 + beta2 + 0.5 * (v1 * square_sum(gamma1, gamma) + v2 * square_sum(gamma2, gamma))
@@ -155,7 +155,7 @@ def dis_loss(y, y_pred, max, min):
 
 def NIG_NLL(gamma, v, alpha, beta, mse):
     om = 2 * beta * (1 + v)
-    nll =  0.5*torch.log(np.pi/v) \
+    nll =  0.5*torch.log(np.pi/v + 1e-12) \
         - alpha*torch.log(om) \
         + (alpha + 0.5) * torch.log(v * mse + om) \
         + torch.lgamma(alpha) \
@@ -170,7 +170,7 @@ def NIG_loss(gamma, v, alpha, beta, mse, coeffi = 0.01):
     # our loss function
     om = 2 * beta * (1 + v)
     loss = \
-        (0.5 * torch.log(np.pi / v) - alpha * torch.log(om) + (alpha + 0.5) * torch.log(v * mse + om) + torch.lgamma(alpha) - torch.lgamma(alpha + 0.5)).sum() / len(gamma)
+        (0.5 * torch.log(np.pi / v + 1e-12) - alpha * torch.log(om) + (alpha + 0.5) * torch.log(v * mse + om) + torch.lgamma(alpha) - torch.lgamma(alpha + 0.5)).sum() / len(gamma)
     lossr = coeffi * (mse * (2 * v + alpha)).sum() / len(gamma)
     loss = loss + lossr
     return loss + lossr
